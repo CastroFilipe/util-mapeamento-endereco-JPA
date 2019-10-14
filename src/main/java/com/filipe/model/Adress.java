@@ -7,9 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -17,18 +20,18 @@ import javax.persistence.UniqueConstraint;
 import com.filipe.model.enums.UF;
 
 /**
- * classe endereco utilizada pelas entidades Cliente e Unidade
+ * uma outra classe endereco para utilizar o mapeamento em conjunto com herança no ObjComEndereco
  * */
 @Entity
-@Table(name = "ENDERECO", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "ID_ENDERECO", name = "UK_ID_ENDERECO") })
-@SequenceGenerator(name = "SEQ_ENDERECO", sequenceName = "SQ_ENDERECO", initialValue = 1, allocationSize = 1)
-public class Endereco implements Serializable {
+@Table(name = "ADRESS", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "ID_ADRESS", name = "UK_ID_ADRESS") })
+@SequenceGenerator(name = "SEQ_ADRESS", sequenceName = "SQ_ADRESS", initialValue = 1, allocationSize = 1)
+public class Adress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID_ENDERECO")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ENDERECO")
+	@Column(name = "ID_ADRESS")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ADRESS")
 	private Long id;
 
 	@Column(name = "NO_RUA")
@@ -57,14 +60,14 @@ public class Endereco implements Serializable {
 	private UF estado;
 	
 //	@JsonIgnore
-//	@ManyToOne
-//	@JoinColumn(name= "ID_OBJ_COM_ENDERECO", foreignKey = @ForeignKey(name = "FK_ENDERECO_OBJCOMENDERECO"))
-//	private ObjComEndereco objComEndereco;
+	@ManyToOne
+	@JoinColumn(name= "ID_OBJ_COM_ENDERECO", foreignKey = @ForeignKey(name = "FK_ENDERECO_OBJCOMENDERECO"))
+	private ObjComEndereco objComEndereco;
 
-	public Endereco() {
+	public Adress() {
 	}
 
-	public Endereco(Long id, String rua, String numero, String complemento, String cep, String cidade, String bairro,
+	public Adress(Long id, String rua, String numero, String complemento, String cep, String cidade, String bairro,
 			String pais, UF estado) {
 		super();
 		this.id = id;
@@ -159,9 +162,9 @@ public class Endereco implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Endereco))
+		if (!(obj instanceof Adress))
 			return false;
-		Endereco other = (Endereco) obj;
+		Adress other = (Adress) obj;
 		return id != null && Objects.equals(id, other.id);
 	}
 

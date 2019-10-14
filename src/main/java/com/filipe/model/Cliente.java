@@ -50,8 +50,8 @@ public class Cliente implements Serializable {
 	@JoinTable(
 			name = "ENDERECO_CLIENTE", uniqueConstraints = {
 					@UniqueConstraint(columnNames = "ID_ENDERECO", name = "UK_ID_ENDERECO")},
-			joinColumns = @JoinColumn(name = "ID_CLIENTE",foreignKey = @ForeignKey(name = "FK_CLIENTE_ENDERECO")), 
-			inverseJoinColumns = @JoinColumn(name = "ID_ENDERECO", foreignKey = @ForeignKey(name = "FK_ENDERECO_CLIENTE"))
+			joinColumns = @JoinColumn(name = "ID_CLIENTE",foreignKey = @ForeignKey(name = "FK_ENDERECO_CLIENTE")), 
+			inverseJoinColumns = @JoinColumn(name = "ID_ENDERECO", foreignKey = @ForeignKey(name = "FK_CLIENTE_ENDERECO"))
 			)
 	private Set<Endereco> enderecos = new HashSet<>();
 	
